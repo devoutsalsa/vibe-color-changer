@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Color Changer</title>
+    <!-- Load Tailwind CSS from CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Inter font and overall body layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease; /* Smooth transition for background color changes */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+    <!-- Main container for the app, centered and with rounded corners -->
+    <div class="bg-white p-8 rounded-2xl shadow-xl text-center max-w-sm w-full">
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-6">
+            Vibe Color Changer!
+        </h1>
+        <p class="text-lg text-gray-600 mb-8">
+            Click the button to change the background color to a random vibe!
+        </p>
+        <!-- The button to trigger the color change -->
+        <button id="changeColorBtn"
+                class="px-8 py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold text-xl rounded-full shadow-lg hover:from-purple-600 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-purple-300 transition transform hover:scale-105 active:scale-95">
+            Change Vibe
+        </button>
+    </div>
+
+    <script>
+        // Get a reference to the button and the body element
+        const changeColorBtn = document.getElementById('changeColorBtn');
+        const body = document.body;
+
+        // Function to generate a random hexadecimal color code
+        function getRandomColor() {
+            // Generate a random number between 0 and 16777215 (FFFFFF in hex)
+            const randomInt = Math.floor(Math.random() * 16777215);
+            // Convert the integer to a hexadecimal string and pad with leading zeros if necessary
+            // to ensure it's always 6 characters long (e.g., #00FF33)
+            return '#' + randomInt.toString(16).padStart(6, '0');
+        }
+
+        // Add an event listener to the button
+        // When the button is clicked, the function inside will execute
+        changeColorBtn.addEventListener('click', () => {
+            // Get a new random color
+            const newColor = getRandomColor();
+            // Apply the new color to the body's background style
+            body.style.backgroundColor = newColor;
+            // Log the new color to the console (you can open your browser's developer tools to see this!)
+            console.log('Background color changed to:', newColor);
+        });
+
+        // Set an initial random background color when the page loads
+        // This makes sure there's a color from the start, not just after the first click
+        window.onload = () => {
+            body.style.backgroundColor = getRandomColor();
+        };
+    </script>
+</body>
+</html>
